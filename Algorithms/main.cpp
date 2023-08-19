@@ -101,13 +101,37 @@ int fibonacci(int n) {
     }
 }
 
+// MARK: Optimal Nth Fibonacci with memoization
+
+int fibonacciOptimal(int n, int* memoize) {
+    
+    if (memoize[n] != -1) {
+        return memoize[n];
+    } else {
+        memoize[n] = fibonacciOptimal(n - 1, memoize) + fibonacciOptimal(n - 2, memoize);
+        return memoize[n];
+    }
+}
+
 int main(int argc, const char * argv[]) {
-    // insert code here...
     cout << sumOfFirstN(5) << endl;
     cout << factorial(5) << endl;
     cout << power(20, 20) << endl;
     cout << taylorSeries(4, 30) << endl;
-    cout << fibonacci(5) << endl;
+    
+    
+    
+    cout << fibonacci(29) << endl;
+    
+    int n = 29;
+    int* memoize = (int*)(malloc(sizeof(int) * n));
+    for (int i = 0; i < n; i++) {
+        memoize[i] = -1;
+    }
+    memoize[0] = 0;
+    memoize[1] = 1;
+    
+    cout << fibonacciOptimal(n - 1, memoize) << endl;
     return 0;
 }
 
